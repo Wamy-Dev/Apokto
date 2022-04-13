@@ -7,8 +7,8 @@ import decouple
 from decouple import config
 
 #env variables
-CERTLOCATION = config('CERTLOCATION')
-DBLOCATION = config('DBLOCATION')
+CERTLOCATION = config('CERTLOCATION', default="./firebasecert.json")
+DBLOCATION = config('DBLOCATION', default="repos")
 #json
 json_data = {}
 #firebase
