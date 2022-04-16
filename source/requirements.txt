@@ -1,0 +1,4 @@
+requests
+python-decouple
+firebase
+firebase-admin
