@@ -3,4 +3,4 @@ This is a IOS jailbreak repo, that allows you to customize and make a list of al
 
 This is based on the [Carcaschoi Switch Shop Forwarder](https://github.com/carcaschoi/tinfoil-json). Instead of being used for switch repos, this is used for any jailbreak device on any IOS.
 
-![logo](https://i.imgur.com/PIbBEcz.jpg)
+![logo](/apoktodarklogo.png)
