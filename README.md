@@ -3,5 +3,7 @@ This is a IOS jailbreak repo, that allows you to customize and make a list of al
 
 This is based on the [Carcaschoi Switch Shop Forwarder](https://github.com/carcaschoi/tinfoil-json). Instead of being used for switch repos, this is used for any jailbreak device on any IOS.
 
-![Fancy logo](/assets/darklogoapokto.png#gh-light-mode-only)
-![Fancy logo](/assets/lightlogoapokto.png#gh-dark-mode-only)
+<div align="center">
+  <img src="/assets/darklogoapokto.png#gh-light-mode-only" height="200">
+  <img src="/assets/lightlogoapokto.png#gh-dark-mode-only" height="200">
+</div>
