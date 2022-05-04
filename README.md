@@ -11,7 +11,7 @@ Adding all your favorite repos is hard, there are tweaks like [Flame](http://cyd
 Here you can add this repo to your package manager and create your own repo list from scratch or a template!
 - To add this repo and get your custom repo list: ~~[Apokto.dev/repo](https://github.com/Wamy-Dev/Apokto/)~~ (Not available yet!)
 - To create your very own custom repo list:  ~~[Apokto.dev/build](https://github.com/Wamy-Dev/Apokto/)~~ (Not available yet!)
-- 
+
 # Features (WIP)
 
 - [x] Gets newest repos every 2 hours.
