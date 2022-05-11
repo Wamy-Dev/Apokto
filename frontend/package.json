@@ -1,0 +1,53 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fontsource/cabin": "^4.5.6",
+    "@fontsource/mukta": "^4.5.8",
+    "@fontsource/secular-one": "^4.5.8",
+    "@mantine/core": "^4.1.4",
+    "@mantine/form": "^4.1.4",
+    "@mantine/hooks": "^4.1.4",
+    "@mantine/modals": "^4.1.4",
+    "@meilisearch/instant-meilisearch": "^0.7.0",
+    "@react-spring/parallax": "^9.4.5",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.1.1",
+    "@testing-library/user-event": "^13.5.0",
+    "firebase": "^9.6.11",
+    "firebase-admin": "^10.0.2",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-fade-in": "^2.0.1",
+    "react-instantsearch-dom": "^6.23.3",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "5.0.1",
+    "tabler-icons-react": "^1.45.0",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
