@@ -31,6 +31,6 @@ If you find a bug, please let me know by going [here](https://github.com/Wamy-De
 #
 
 ##### This was made by me, Wamy.
-##### If you want to contact me: [My personal contact page](https://homeonacloud.com/pages/contactme.html)
-##### If you want to donate to show your thanks: [My personal donation page](https://homeonacloud.com/pages/donate.html)
+##### If you want to contact me: [My personal contact page](https://homeonacloud.com/contactme)
+##### If you want to donate to show your thanks: [My personal donation page](https://homeonacloud.com/donate)
 ##### This project was made with community in mind, please be nice and don't steal my work.
