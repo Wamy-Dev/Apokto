@@ -2,8 +2,13 @@ import { collection, getDocs} from "firebase/firestore";
 import React, { useState, useEffect } from 'react';
 import { createStyles, Table, Checkbox, ScrollArea, Center, Anchor, Grid, Button, Input } from '@mantine/core';
 import "@fontsource/mukta"
+<<<<<<< HEAD
 import {db} from "../config/firebase";
 import { render } from "@testing-library/react";
+=======
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+>>>>>>> fee9633094a4dddf34aa84b70eb8d7413708b658
 const useStyles = createStyles((theme) => ({
 }));
 export default function RepoTable() {
