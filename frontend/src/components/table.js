@@ -1,53 +1,88 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs} from "firebase/firestore";
+import { collection, getDocs} from "firebase/firestore";
 import React, { useState, useEffect } from 'react';
-import { createStyles, Table, Checkbox, ScrollArea, Center, Anchor, Grid, Button } from '@mantine/core';
+import { createStyles, Table, Checkbox, ScrollArea, Center, Anchor, Grid, Button, Input } from '@mantine/core';
 import "@fontsource/mukta"
-const firebaseConfig = {
-    apiKey: "AIzaSyAQJh4IP4DRbkFENg6LRSqClKatveFKwTI",
-    authDomain: "apokto-986c4.firebaseapp.com",
-    databaseURL: "https://apokto-986c4-default-rtdb.firebaseio.com",
-    projectId: "apokto-986c4",
-    storageBucket: "apokto-986c4.appspot.com",
-    messagingSenderId: "87513490387",
-    appId: "1:87513490387:web:ae5e58232073924dc50526"
-  };
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+import {db} from "../config/firebase";
+import { render } from "@testing-library/react";
 const useStyles = createStyles((theme) => ({
 }));
 export default function RepoTable() {
+  var pagelength = 10;
   const [data,setData] = useState([]);
+  const [page,setPage] = useState(1);
+  const [filtData,setFiltData] = useState([]);
+  const [renderData, setRenderData] = useState(data.slice(0, pagelength));
+  const [search, setSearch] = useState('');
   const { classes, cx } = useStyles();
   const [selection, setSelection] = useState([]);
-  const toggleRow = (id) =>
-  {
+
+
+  const toggleRow = (id) =>{
     setSelection((current) =>
       current.includes(id) ? current.filter((item) => item !== id) : [...current, id]
     );
   }
+
   const toggleAll = () =>{
-    setSelection((current) => (current.length === data.length ? [] : data.map((item) => item.id)));
-  }  
+    setSelection((current) => (current.length === data.length ? [] : data.map((item) => data.indexOf(item))));
+  }
+
+
+
+
+  const pagination = () => {
+    setRenderData(filtData.slice((page-1)*pagelength, page*pagelength))
+  }
+
+
+  useEffect(() => {
+    pagination()
+  }, [page,filtData]);
+
+  useEffect(() => {
+    Sort()
+  }, [search]);
+
   useEffect(() => {
     getData();
   }, []);
+
+
+
   const getData = async () => {
     const querySnapshot = await getDocs(collection(db, "repos"));
     let tempData = [];
     querySnapshot.forEach((doc) => {
       tempData.push({repo_name:doc.id, ...doc.data()})
     });
+    console.log('bruh')
     setData(()=>tempData);
+    setRenderData(tempData.slice(0, pagelength));
+    setFiltData(tempData);
+    
   }
-  const rows = data.map(item=>{
-    const selected = selection.includes(item.id);
-    return <tr key={item.id}  className={cx({ [classes.rowSelected]: selected })}>
+
+
+  const Sort = () => {
+    var filtered = []
+    data.map((repo, index) => {
+      if (repo['repo_name'].toUpperCase().includes(search.toUpperCase())){
+        filtered.push(repo)
+  }})
+  setPage(1)
+  setFiltData(filtered)
+  
+  }
+
+
+  const rows = renderData.map(item=>{
+    const selected = selection.includes(data.indexOf(item));
+    return <tr key={data.indexOf(item)}  className={cx({ [classes.rowSelected]: selected })}>
               <td>
           <Checkbox
             color="mainred"
-            checked={selection.includes(item.id)}
-            onChange={() => toggleRow(item.id)}
+            checked={selection.includes(data.indexOf(item))}
+            onChange={() => toggleRow(data.indexOf(item))}
             transitionDuration={1}
           />
         </td>
@@ -67,15 +102,29 @@ export default function RepoTable() {
     </tr>
   })
   return (
+    
     <Grid columns={24}>
-      <Grid.Col span={6}>
-        <Button style={{backgroundColor: "#C1272D"}}>
-          Submit
-          </Button>
+      <Grid.Col md={4} span={24}>
+      <Center>
+          <Button 
+          onClick={()=> selection.forEach((item) => {
+            console.log(data[item])})}
+          style={{backgroundColor: "#C1272D"}}>
+            Submit
+            </Button>
+            <p style={{color:'white',paddingLeft:'3%'}}>Repos Selected: {selection.length}</p>
+        </Center>
       </Grid.Col>
-      <Grid.Col span={18}>
+      <Grid.Col md={18} span={24}>
         <Center>
           <ScrollArea>
+          <Input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search"
+            radius="xs"
+            size="md"
+          />
             <Table verticalSpacing="xs">
               <thead>
                 <tr>
@@ -102,10 +151,28 @@ export default function RepoTable() {
           </thead>
           <tbody>{rows}</tbody>
         </Table>
+        
+
+
+
   </ScrollArea>
 </Center>
 </Grid.Col>
- 
+<Grid.Col span={24}>
+  <Center>    
+    <div style={{paddingTop:'3%'}}>
+      <Button onClick={() => {if(page!=1){setPage(page-1)}}}>{'<'}</Button>
+        
+        {((filtData.length/pagelength)>0)? <Button onClick={() => {setPage(1)}}>1</Button> :null}
+        {((filtData.length/pagelength)>1)? <Button onClick={() => {setPage(2)}}>2</Button> :null}
+        {((filtData.length/pagelength)>2)? <Button onClick={() => {setPage(3)}}>3</Button> :null}
+        {((filtData.length/pagelength)>3)? <Button onClick={() => {setPage(4)}}>4</Button> :null}
+        
+      <Button onClick={() => {if (page*pagelength<filtData.length){setPage(page+1)}}}>{'>'}</Button>
+    
+    </div>
+  </Center>
+</Grid.Col>
 </Grid>
   )
 }

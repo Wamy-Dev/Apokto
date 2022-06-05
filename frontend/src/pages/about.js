@@ -18,7 +18,7 @@ export default function AboutPage () {
                         </Link>
                     </div>
                     <div style={{inlineSize: "96%"}}>
-                        <h1 style={{ fontSize: "40px", fontFamily: 'Mukta, sans-serif', color:"white"}}>
+                        <h1 style={{ fontSize: "50px", fontFamily: 'Mukta, sans-serif', color:"white"}}>
                             Why use Apokto? Because it's the easiest way to get the repos you want.
                         </h1>
                     </div>
@@ -26,29 +26,47 @@ export default function AboutPage () {
             </ParallaxLayer>
             <ParallaxLayer offset={1} speed={0.65} factor={2} style={{backgroundImage: `url(${SecondWave})`, backgroundSize: "cover", paddingLeft: "30px"}}>
                 <div>
-                    <h1 style={{ fontSize: "25px", fontFamily: 'Mukta, sans-serif', color:"white"}}>
-                        Stack Used:
+                    <h1 style={{ fontSize: "30px", fontFamily: 'Mukta, sans-serif', color:"white"}}>
+                        Built on:
                     </h1>
-                    <li>
-                        Python
-                    </li>
-                    <li>
-                        Javascript
-                    </li>
-                    <li>
-                        React
-                    </li>
+                    <ul style={{ fontSize: "25px", fontFamily: 'Cabin, sans-serif', color:"white"}}>
+                        <li>
+                            Python
+                        </li>
+                        <li>
+                            Javascript
+                        </li>
+                        <li>
+                            React
+                        </li>
+                        <li>
+                            MantineUI
+                        </li>
+                        <li>
+                            Smaller sources listed <a href="https://github.com/Wamy-Dev/Apokto/wiki">here</a>.
+                        </li>
+                    </ul>
                 </div>
             </ParallaxLayer>
-            <ParallaxLayer offset={2} speed={1} style={{backgroundImage: `url(${ThirdWave})`, backgroundSize: "cover", paddingLeft: "30px"}}>
-                <div style={{inlineSize: "96%"}}>
-                <h1 style={{ fontSize: "25px", fontFamily: 'Mukta, sans-serif', color:"white"}}>
-                    Here is another header for another section.
-                </h1>
-                <p style={{ fontSize: "20px", fontFamily: 'Cabin, sans-serif', color:"white"}}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam molestie aliquam pretium. Vestibulum eget turpis eu arcu volutpat consectetur sed sed elit. Donec nulla leo, hendrerit a faucibus et, iaculis in lectus. Vestibulum ac mollis ante. Fusce sit amet tempor odio. Duis sit amet molestie nibh, sed blandit massa. In suscipit a sem sit amet scelerisque. Pellentesque volutpat nec lacus id scelerisque. Nullam cursus malesuada leo lacinia molestie. Etiam vel risus quam. Donec pretium turpis elementum efficitur elementum. Mauris pulvinar, dolor nec ultricies maximus, lorem diam interdum lorem, vitae vestibulum purus lorem vel dolor. Praesent eu pulvinar turpis, at eleifend sapien. Suspendisse euismod egestas odio sit amet suscipit. Donec eu sodales mauris, a sagittis nisl. Quisque faucibus velit vel ultricies rutrum. Vivamus finibus et tellus at pretium. Donec placerat euismod convallis. Pellentesque commodo ante et felis imperdiet, quis fringilla risus fermentum. Phasellus eget porttitor nisi. Donec venenatis rutrum nunc tempor molestie. Suspendisse potenti. Curabitur dapibus, ipsum eu semper consequat, purus augue iaculis ante, ut egestas neque arcu eu massa. Vivamus augue lorem, pulvinar sit amet risus at, luctus tristique ex. Curabitur eu cursus dui. Phasellus viverra, tellus eget molestie efficitur, mi magna semper urna, in euismod mi mi in felis. Ut condimentum ante sed arcu commodo, et tristique risus efficitur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pellentesque aliquet tortor vitae malesuada. Pellentesque id ante pulvinar, ultricies erat in, fringilla risus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Cras posuere a libero eu malesuada. Phasellus tellus dui, hendrerit ut felis euismod, hendrerit lacinia metus. Proin volutpat felis non risus consequat sollicitudin. Fusce nec eleifend diam. In elementum luctus diam, ultrices varius neque mattis vel. Proin sed felis dapibus neque dignissim hendrerit id non massa. Nunc quis vehicula orci, in consequat erat.
-                </p>
+            <ParallaxLayer offset={2} speed={1} style={{backgroundImage: `url(${ThirdWave})`, backgroundSize: "cover"}}>
+                <div style={{inlineSize: "96%", paddingLeft: "30px"}}>
+                    <h1 style={{ fontSize: "30px", fontFamily: 'Mukta, sans-serif', color:"white"}}>
+                        Why does this exist?
+                    </h1>
+                    <p style={{ fontSize: "25px", fontFamily: 'Cabin, sans-serif', color:"white"}}>
+                        Apokto exists because I have been a long time iOS jailbreak enthusiast (first iPhone ever jailbroken was the iPhone 4S) and finding and adding repos to get the tweaks I have been wanting has been hard.
+                        Whether trying to find a small theme that I saw on Reddit, or discovering new tweaks to enhance my device any way, finding the right repo is hard. Throughout the years, there have been tweaks like Flame, or even Cydown
+                        that has made it easier to add a lot of repositories at once, but they still had major flaws. Now that I have experience in coding and am finally fed up with the status of repositories, I have made Apokto, the easiest way to
+                        pick and choose your repos as quickly as possible. I hope that this will be useful to even a small group of people.
+                    </p>
                 </div>
+                <center>
+                <div style={{position: "absolute", bottom: "10%", right: "50%"}}>
+                        <p style={{ fontSize: "25px", fontFamily: 'Cabin, sans-serif', color:"white"}}>
+                            Thank you for using Apokto.
+                        </p>
+                </div>
+                </center>
             </ParallaxLayer>
         </Parallax>
     </div>
