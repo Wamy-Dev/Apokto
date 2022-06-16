@@ -1,7 +1,7 @@
 import { collection, getDocs,startAt,endAt,limitToLast,endBefore,startAfter, query, orderBy, limit} from "firebase/firestore";
 import React, { useState, useEffect } from 'react';
 import { createStyles, Table, Checkbox, ScrollArea, Center, Anchor, Grid, Button, Input, LoadingOverlay, Modal, Tooltip } from '@mantine/core';
-import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
+import { BrowserView, MobileView } from 'react-device-detect';
 import FadeIn from 'react-fade-in'
 import Logo from '../assets/lightlogoapokto.svg';
 import { Link } from 'react-router-dom'
