@@ -20,6 +20,7 @@
     "firebase-admin": "^10.0.2",
     "nth-check": ">=2.0.1",
     "react": "^18.0.0",
+    "react-device-detect": "^2.2.2",
     "react-dom": "^18.0.0",
     "react-fade-in": "^2.0.1",
     "react-instantsearch-dom": "^6.23.3",
