@@ -8,13 +8,11 @@ from decouple import config
 from datetime import datetime
 import string
 #env variables
-CERTLOCATION = config('CERTLOCATION')
-DBLOCATION = config('DBLOCATION')
 CRONMONITORING = config("CRONMONITORING")
 #json
 json_data = {}
 #firebase
-cred = credentials.Certificate(CERTLOCATION)
+cred = credentials.Certificate("./creds.json")
 response = requests.get("https://api.parcility.co/db/repos")
 firebase_admin.initialize_app(cred)
 db = firestore.client()
@@ -29,7 +27,7 @@ if response.status_code == 200:
 			deleted = deleted + 1
 		if deleted >= batch_size:
 			return delete_collection(coll_ref, batch_size)
-	delete_collection(db.collection(DBLOCATION), 1000)
+	delete_collection(db.collection("repos"), 1000)
 	print(f'Parcility status: {response.status_code}. Getting all repos available.')
 	data = response.json()["data"]
 	for each in data:
@@ -84,7 +82,7 @@ if response.status_code == 200:
 						finally:
 							print("Finished valid repo.")
 			try:
-				upload = db.collection(DBLOCATION).document(name)
+				upload = db.collection("repos").document(name)
 				upload.set({
 					'id': ID,
 					'name': name,
@@ -95,7 +93,7 @@ if response.status_code == 200:
 				print("Added repo to db using default name.\n##########")
 			except:
 				#only if the original name is invalid for whatever reason
-				upload = db.collection(DBLOCATION).document(altname)
+				upload = db.collection("repos").document(altname)
 				upload.set({
 					"name": altname,
 					'id': ID,

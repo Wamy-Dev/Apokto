@@ -5,13 +5,13 @@ var cookieParser = require('cookie-parser')
 var cors = require('cors')
 var fs = require('fs');
 const bodyParser = require('body-parser');
-const { response } = require('express');
+require('dotenv').config();
 const app = express()
 const port = 3001
 
 
 app.use(session({
-    secret: 'keyboard cat',
+    secret: process.env.COOKIESECRET,
     resave: false,
     saveUninitialized: true,
     cookie: { maxAge: 60000 }
@@ -24,7 +24,7 @@ var allowCrossDomain = function(req, res, next) {
 }
 app.use(allowCrossDomain);
 const corsOptions = {
-    origin: 'http://localhost:3000',  //Your Client, do not write '*'
+    origin: 'http://localhost:3000',
     credentials: true,
 };
 app.use(cors(corsOptions));
@@ -52,14 +52,15 @@ app.post('/create', async (req, res) => {
         file.write(line)
     });
     req.session.file = newdir
-    res.json({listname: newdir})
+    res.status(200).json({listname: newdir})
 })
 app.get('/create', (req, res) => {
-    res.send('You arent supposed to be here.')
+    res.status(200).send('<h3>This is where you create your repo list. 🐎</h3>')
 })
 app.get('/download', (req, res) => {
     var file = req.session.file;
     res.download(__dirname + "/lists/" + `${file}/` + "cydia.list")
+    res.status(200).send("<h3>This is where you download your repo list. 🐎</h3>")
 })
 app.listen(port, () => {
     console.log(`Apokto API running on port ${port}`)

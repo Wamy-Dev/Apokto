@@ -10,6 +10,7 @@
     "@mantine/form": "^4.1.4",
     "@mantine/hooks": "^4.1.4",
     "@mantine/modals": "^4.1.4",
+    "@react-spring/parallax": "^9.4.5",
     "async": ">=2.6.4",
     "firebase": "^9.6.11",
     "firebase-admin": "^10.0.2",
