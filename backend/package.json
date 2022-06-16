@@ -22,7 +22,6 @@
     "express-rate-limit": "^6.4.0",
     "express-session": "^1.17.3",
     "helmet": "^5.1.0",
-    "nodemon": "^2.0.15",
-    "zip-local": "^0.3.5"
+    "nodemon": "^2.0.15"
   }
 }
