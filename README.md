@@ -6,7 +6,7 @@ Adding all your favorite repos is hard, there are tweaks like [Flame](http://cyd
   <img src="/assets/lightlogoapokto.png#gh-dark-mode-only" height="200">
 </div>
 
-# Website = ~~[Apokto.dev](https://github.com/Wamy-Dev/Apokto/)~~ (Not available yet!)
+# Website = [Apokto.one](https://github.com/Wamy-Dev/Apokto/)
 
 Here you can add this repo to your package manager and create your own repo list from scratch or a template!
 - To add this repo and get your custom repo list: ~~[Apokto.dev/repo](https://github.com/Wamy-Dev/Apokto/)~~ (Not available yet!)
