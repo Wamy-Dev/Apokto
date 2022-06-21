@@ -8,8 +8,6 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 const app = express()
 const port = 3001
-
-
 app.use(session({
     secret: process.env.COOKIESECRET,
     resave: false,

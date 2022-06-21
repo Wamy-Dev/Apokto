@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import FadeIn from 'react-fade-in';
 import { BrowserView, MobileView } from 'react-device-detect';
 
-export default function Repo () {
+export default function Home () {
     return (
         <div>
             <BrowserView>

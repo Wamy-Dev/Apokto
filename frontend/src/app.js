@@ -5,9 +5,9 @@ import {
 } from "react-router-dom";
 import RepoTable from './components/table.js';
 import { MantineProvider } from '@mantine/core';
-import Repo from './pages/home';
+import Home from './pages/home';
 import AboutPage from './pages/about';
-import Error from './pages/404'
+import Error from './pages/404';
 import "@fontsource/cabin"
 export default function App() {
     return (
@@ -29,7 +29,7 @@ export default function App() {
                     <Routes>
                         <Route path="/about"  element={<AboutPage />} />
                         <Route path="/build"  element={<RepoTable />} />
-                        <Route path="/"  element={<Repo />} />
+                        <Route path="/"  element={<Home />} />
                         <Route path="*"  element={<Error />} />
                     </Routes>
                 </MantineProvider>
