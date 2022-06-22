@@ -4,10 +4,12 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var fs = require('fs');
 const bodyParser = require('body-parser');
+const simpleGit = require('simple-git');
 require('dotenv').config();
 const { exec } = require('child_process');
 const app = express()
 const port = 3001
+const git = simpleGit();
 app.use(session({
     secret: process.env.COOKIESECRET,
     resave: false,
@@ -84,10 +86,13 @@ app.get('/download', (req, res) => {
       res.status(200).send("<h3>This is where you download your repo list. 🐎</h3>")
     }
 })
-app.get('/addtorepo', (req, res) => {
+app.get('/addtorepo', async (req, res) => {
   var file = req.session.file;
   if (file) {
     var deb = `./lists/${file}.deb`
+    //commit
+    await git.init().addRemote('repo', 'git@github.com:Wamy-Dev/Apokto.git');
+    await git.commit(`Added list -> ${file}`, [deb], options, handlerFn)
 
   } else {
     res.status(200).send("<h3>This is where you add your repo to the Apokto Repo. 🐎</h3>")

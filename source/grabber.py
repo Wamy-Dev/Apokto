@@ -45,9 +45,12 @@ if response.status_code == 200:
 			#getting repo names
 			try: 
 				name = each["Label"]
+				namelower = name.lower()
 				name = name.encode("utf-8").decode("utf-8")
 				name = name.replace("\r", "")
 				altname = each["id"]
+				altnameupper = altname.capitalize()
+				altnamelower = altname.lower()
 				print(name)
 			except:
 				name = "Name Unknown"
@@ -85,7 +88,7 @@ if response.status_code == 200:
 				upload = db.collection("repos").document(name)
 				upload.set({
 					'id': ID,
-					'name': name,
+					"name": namelower,
 					'repo': repo,
 					'icon': icon,
 					'desc': description
@@ -95,8 +98,8 @@ if response.status_code == 200:
 				#only if the original name is invalid for whatever reason
 				upload = db.collection("repos").document(altname)
 				upload.set({
-					"name": altname,
 					'id': ID,
+					"name": altnamelower,
 					'repo': repo,
 					'icon': icon,
 					'desc': description

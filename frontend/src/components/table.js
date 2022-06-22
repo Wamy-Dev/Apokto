@@ -118,7 +118,7 @@ export default function RepoTable() {
         </Anchor>
       </td>
       <td
-      style={{fontSize: "md"}}>
+      style={{fontSize: "md"}} className="reponame">
         {item.repo_name}
       </td>
       <td
@@ -233,7 +233,7 @@ export default function RepoTable() {
         <Center>
           <ScrollArea>
           <Input
-            value={search}
+            value={search.toLowerCase()}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search for a repo name..."
             radius="md"

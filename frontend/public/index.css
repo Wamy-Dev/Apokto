@@ -6,3 +6,9 @@ body {
 td {
     color: white
 }
+.reponame {
+    text-transform: lowercase;
+}
+.reponame::first-letter {
+    text-transform: uppercase;
+}
