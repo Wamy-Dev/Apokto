@@ -8,7 +8,6 @@ require('dotenv').config();
 const { exec } = require('child_process');
 const app = express()
 const port = 3001
-const git = simpleGit();
 app.use(session({
     secret: process.env.COOKIESECRET,
     resave: false,
@@ -67,6 +66,7 @@ app.post('/create', async (req, res) => {
             if (error !== null) {
                 console.log(`exec error: ${error}`);
             }
+            fs.rmSync(__dirname+`/lists/${repolist}`, { recursive: true, force: true });
         });
     req.session.file = repolist
     res.status(200).json({listname: repolist})
@@ -77,7 +77,7 @@ app.get('/create', (req, res) => {
 app.get('/download', (req, res) => {
     var file = req.session.file;
     if (file) {
-      var dir = "./lists/" + file + "/etc/apt/sources.list.d/" + `${file}.list`
+      var dir = "./lists/" + `${file}.deb`
       res.download(dir)
     } else {
       res.status(200).send("<h3>This is where you download your repo list. 🐎</h3>")
@@ -87,8 +87,25 @@ app.get('/addtorepo', async (req, res) => {
   var file = req.session.file;
   if (file) {
     var deb = `./lists/${file}.deb`
+    try {
+      if (!fs.existsSync("./debs")) {
+        fs.mkdirSync("./debs");
+      }
+    } catch (err) {
+      console.error(err);
+    } 
     //move file
-
+    try {
+    var move = exec(`mv ${__dirname}/lists/${file}.deb ${__dirname}/debs/${file}.deb`, 
+    (error, stdout, stderr) => {
+      if (error !== null) {
+          console.log(`exec error: ${error}`);
+      }
+      res.sendStatus(201)
+    })
+  } catch (err) {
+    console.log(err)
+  }
   } else {
     res.status(200).send("<h3>This is where you add your repo to the Apokto Repo. 🐎</h3>")
   }

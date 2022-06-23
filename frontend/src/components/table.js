@@ -21,8 +21,10 @@ export default function RepoTable() {
   const [firstVisible, setPrevVisible] = useState();
   const [loadingvisible, setLoadingVisible] = useState(true);
   const [opened, setOpened] = useState(false);
+  const [sopened, setSOpened] = useState(false);
   const [tooltipopen, setToolTipOpen] = useState(false);
   const [repolist, setRepoList] = useState("random10");
+  const [url, setUrl] = useState("http://localhost:3001")
   useEffect(() => {
     const onPageLoad = () => {
       setLoadingVisible(false);
@@ -129,7 +131,7 @@ export default function RepoTable() {
   })
   var list = []
   function sendList() {
-    fetch('http://localhost:3001/create', {
+    fetch(`${url}/create`, {
       method: 'post',
       credentials: 'include',
       headers: {
@@ -208,7 +210,20 @@ export default function RepoTable() {
         </Center>
       </Grid.Col>
       <Modal
-      transition="fade"
+      transition="slide-up"
+      closeOnEscape="true"
+      transitionDuration={600}
+      transitionTimingFunction="ease"
+      radius="md"
+        opened={sopened}
+        onClose={() => setSOpened(false)}
+        withCloseButton={false}>
+          <h3 style={{fontFamily:"Mukta"}}>Your list is now in the Apokto Repo! 🐎</h3>
+          <p style={{fontFamily:"Mukta"}}>Saved as list: <strong>{repolist}</strong> in the Apokto Repo.</p>
+          <p style={{fontSize: "sm", fontFamily:"Mukta"}}>If you found this service useful, please consider donating.</p>
+      </Modal>
+      <Modal
+      transition="slide-up"
       closeOnEscape="true"
       transitionDuration={600}
       transitionTimingFunction="ease"
@@ -221,10 +236,25 @@ export default function RepoTable() {
           <p style={{fontFamily:"Mukta"}}>Please click the "Download" button if you prefer to manually install your repo.</p>
           <p style={{fontSize: "sm", fontFamily:"Mukta"}}>If you found this service useful, please consider donating.</p>
           <center>
-          <Button component="a" href="http://localhost:3001/download" color="mainred" style={{marginRight: "20px"}}>
+          <Button component="a" href='http://localhost:3001/download' color="mainred" style={{marginRight: "20px"}}>
             Download
           </Button>
-          <Button component="a" href="http://localhost:3001/addtorepo" marginleft="10px" color="mainorange" style={{marginLeft: "20px"}}>
+          <Button onClick={() => {
+            fetch(`${url}/addtorepo`, {
+              method: 'get',
+              credentials: 'include',
+            }).then(response => response.status).then((r) => {
+              if (r = 201){
+                setOpened(false)
+                setSOpened(true)
+              } else {
+                console.log("error adding to repo.")
+              }
+            })
+          }} 
+          marginleft="10px" 
+          color="mainorange" 
+          style={{marginLeft: "20px"}}>
             Add to Repo
           </Button>
           </center>
