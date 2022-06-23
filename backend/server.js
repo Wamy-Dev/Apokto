@@ -86,21 +86,70 @@ app.get('/download', (req, res) => {
 app.get('/addtorepo', async (req, res) => {
   var file = req.session.file;
   if (file) {
-    var deb = `./lists/${file}.deb`
+    var deb = `./debs/${file}.deb`
     try {
       if (!fs.existsSync("./debs")) {
         fs.mkdirSync("./debs");
       }
     } catch (err) {
       console.error(err);
-    } 
+    }
+    try {
+      if (!fs.existsSync("./packages")) {
+        fs.mkdirSync("./packages");
+      }
+    } catch (err) {
+      console.error(err);
+    }
     //move file
     try {
-    var move = exec(`mv ${__dirname}/lists/${file}.deb ${__dirname}/debs/${file}.deb`, 
+    var move = exec(`mv ${__dirname}/lists/${file}.deb ${__dirname}/debs/`, 
     (error, stdout, stderr) => {
       if (error !== null) {
           console.log(`exec error: ${error}`);
       }
+      //get and edit packages file
+      function createPackages(file){
+        var getpackages = exec(`cp /Users/chimera/Documents/Projects/Apokto/v1/repo/frontend/build/Packages ${__dirname}/packages/`,
+          (error, stdout, stderr) => {
+          if (error !== null) {
+            console.log(`exec error: ${error}`);
+          }
+          console.log('recieved')
+          var packages = fs.createWriteStream("./packages/Packages", {
+            flags: 'a+'
+          });
+          var stats = fs.statSync(__dirname+`/debs/${file}.deb`);
+          var fileSize = stats.size;
+          var packagestext = `\r\nPackage: com.apokto.${file} \r\nVersion: 1.0 \r\nArchitecture: iphoneos-arm \r\nMaintainer: Wamy-Dev | contact@apokto.one \r\nFilename: debs//${file}.deb \r\nFilesize: ${fileSize} \r\nSection: Repo_Lists \r\nDescription: Repo list generated at repo.apokto.one. Installs on top of your current repo list. Unless you generated this list, it is not recommended to use. To generate your own, go to https://apokto.one/build. \r\nAuthor: Wamy-Dev | Contact@apokto.one \r\nDepiction: https://repo.apokto.one/?/index.html \r\nName: ${file} | apokto.one`
+          packages.write(packagestext)
+          console.log('edited')
+          //zip and ship
+          var cp = exec(`cp ${__dirname}/packages/Packages ${__dirname}/packages/Packages1`)
+          var bzip2 = exec(`bzip2 ${__dirname}/packages/Packages -f`,
+          (error, stdout, stderr) => {
+            if (error !== null) {
+              console.log(`exec error: ${error}`);
+            }
+            console.log('zipped')
+            var movezipped = exec(`cp ${__dirname}/packages/Packages.bz2 /Users/chimera/Documents/Projects/Apokto/v1/repo/frontend/build/`, 
+            (error, stdout, stderr) => {
+              if (error !== null) {
+                console.log(`exec error: ${error}`);
+              }
+              console.log('shipped zipped')
+              var movepackage = exec(`cp ${__dirname}/packages/Packages1 /Users/chimera/Documents/Projects/Apokto/v1/repo/frontend/build/Packages`, 
+              (error, stdout, stderr) => {
+                if (error !== null) {
+                console.log(`exec error: ${error}`);
+                }
+                console.log('shipped edited')
+              })
+            })
+          })
+        }) 
+      }
+      createPackages(file)
       res.sendStatus(201)
     })
   } catch (err) {
