@@ -1,0 +1,11 @@
+Package: Apokto
+Version: 0.0
+Architecture: iphoneos-arm
+Maintainer: Wamy-Dev | Contact@apokto.one
+Filename: debs//Apokto.deb
+Size: 1,236
+Section: xyz
+Description: Testing package...
+Author: Wamy-Dev | Contact@apokto.one
+Depiction: https://repo.apokto.one/?/index.html
+Name: Apokto | DON'T INSTALL

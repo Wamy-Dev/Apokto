@@ -4,7 +4,6 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var fs = require('fs');
 const bodyParser = require('body-parser');
-const simpleGit = require('simple-git');
 require('dotenv').config();
 const { exec } = require('child_process');
 const app = express()
@@ -65,8 +64,6 @@ app.post('/create', async (req, res) => {
     package.write(packagetext)
     var builddeb = exec(`dpkg-deb --build --root-owner-group ${builddeb}`,
         (error, stdout, stderr) => {
-            console.log(stdout);
-            console.log(stderr);
             if (error !== null) {
                 console.log(`exec error: ${error}`);
             }
@@ -90,9 +87,7 @@ app.get('/addtorepo', async (req, res) => {
   var file = req.session.file;
   if (file) {
     var deb = `./lists/${file}.deb`
-    //commit
-    await git.init().addRemote('repo', 'git@github.com:Wamy-Dev/Apokto.git');
-    await git.commit(`Added list -> ${file}`, [deb], options, handlerFn)
+    //move file
 
   } else {
     res.status(200).send("<h3>This is where you add your repo to the Apokto Repo. 🐎</h3>")

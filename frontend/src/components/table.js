@@ -224,7 +224,7 @@ export default function RepoTable() {
           <Button component="a" href="http://localhost:3001/download" color="mainred" style={{marginRight: "20px"}}>
             Download
           </Button>
-          <Button marginleft="10px" color="mainorange" style={{marginLeft: "20px"}}>
+          <Button component="a" href="http://localhost:3001/addtorepo" marginleft="10px" color="mainorange" style={{marginLeft: "20px"}}>
             Add to Repo
           </Button>
           </center>
