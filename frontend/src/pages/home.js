@@ -44,7 +44,7 @@ export default function Home () {
                         <Link to="/build" style={{ textDecoration: 'none', color: "white"}}>Build your repo</Link>
                     </Button></tr>
                     <tr><Button style={{backgroundColor: "#C1272D", width: "150px", marginBottom: "10px"}}>
-                    <a href="https://repo.apokto.one" style={{ textDecoration: 'none', color: "white"}}>Add Apokto repo</a>
+                    <a href="https://repo.apokto.one" style={{ textDecoration: 'none', color: "white"}}>Add Apokto</a>
                     </Button></tr>
                     <tr><Button style={{backgroundColor: "#F15A24", width: "150px", marginBottom: "10px"}}>
                         <Link to="/about" style={{ textDecoration: 'none', color: "white"}}>About Apokto</Link>
