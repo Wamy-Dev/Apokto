@@ -15,7 +15,7 @@ app.use(session({
     cookie: { maxAge: 60000 }
   }))
 var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', "http://localhost:3000",);
+    res.header('Access-Control-Allow-Origin', "https://apokto.one",);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Credentials", "true")
@@ -110,7 +110,7 @@ app.get('/addtorepo', async (req, res) => {
       }
       //get and edit packages file
       function createPackages(file){
-        var getpackages = exec(`cp /Users/chimera/Documents/Projects/Apokto/v1/repo/frontend/build/Packages ${__dirname}/packages/`,
+        var getpackages = exec(`cp /mnt/user/appdata/nginx/config/apoktorepo/Packages ${__dirname}/packages/`,
           (error, stdout, stderr) => {
           if (error !== null) {
             console.log(`exec error: ${error}`);
@@ -132,13 +132,13 @@ app.get('/addtorepo', async (req, res) => {
               console.log(`exec error: ${error}`);
             }
             console.log('zipped')
-            var movezipped = exec(`cp ${__dirname}/packages/Packages.bz2 /Users/chimera/Documents/Projects/Apokto/v1/repo/frontend/build/`, 
+            var movezipped = exec(`cp ${__dirname}/packages/Packages.bz2 /mnt/user/appdata/nginx/config/apoktorepo/`, 
             (error, stdout, stderr) => {
               if (error !== null) {
                 console.log(`exec error: ${error}`);
               }
               console.log('shipped zipped')
-              var movepackage = exec(`cp ${__dirname}/packages/Packages1 /Users/chimera/Documents/Projects/Apokto/v1/repo/frontend/build/Packages`, 
+              var movepackage = exec(`cp ${__dirname}/packages/Packages1 /mnt/user/appdata/nginx/config/apoktorepo/Packages`, 
               (error, stdout, stderr) => {
                 if (error !== null) {
                 console.log(`exec error: ${error}`);
