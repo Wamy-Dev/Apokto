@@ -41,7 +41,7 @@ export default function AboutPage () {
                     <h1 style={{ fontSize: "30px", fontFamily: 'Mukta, sans-serif', color:"white"}}>
                         Why should I use Apokto?
                     </h1>
-                    <p style={{ fontSize: "25px", fontFamily: 'Cabin, sans-serif', color:"white", paddingLeft: "30px", paddingRight: "30px"}}>
+                    <p style={{ fontSize: "20px", fontFamily: 'Cabin, sans-serif', color:"white", paddingLeft: "30px", paddingRight: "30px"}}>
                         There is no real reason to use Apokto, unless you like copying and pasting all of your favorite repos in your package manager, repetitvely and slowly.
                         <br/>
                         With Apokto, everyone wins. You get a nice long list of quality repos, and more jailbreak developers have the opportunity to show of their work with the increased exposure of their repository.
@@ -51,7 +51,7 @@ export default function AboutPage () {
                     <h1 style={{ fontSize: "30px", fontFamily: 'Mukta, sans-serif', color:"white", paddingRight: "30px"}}>
                         Why does this exist?
                     </h1>
-                    <p style={{ fontSize: "25px", fontFamily: 'Cabin, sans-serif', color:"white", paddingLeft: "30px", paddingRight: "30px"}}>
+                    <p style={{ fontSize: "20px", fontFamily: 'Cabin, sans-serif', color:"white", paddingLeft: "30px", paddingRight: "30px"}}>
                         Apokto exists because I have been a long time iOS jailbreak enthusiast (first iPhone ever jailbroken was the iPhone 4S) and finding and adding repos to get the tweaks I have been wanting has been hard.
                         Whether trying to find a small theme that I saw on Reddit, or discovering new tweaks to enhance my device any way, finding the right repo is hard. Throughout the years, there have been tweaks like Flame, or even Cydown
                         that has made it easier to add a lot of repositories at once, but they still had major flaws. Now that I have experience in coding and am finally fed up with the status of repositories, I have made Apokto, the easiest way to

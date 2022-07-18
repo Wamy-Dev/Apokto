@@ -3,6 +3,7 @@ const helmet = require('helmet');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var fs = require('fs');
+const util = require('util')
 const bodyParser = require('body-parser');
 require('dotenv').config();
 const { exec } = require('child_process');
@@ -15,7 +16,7 @@ app.use(session({
     cookie: { maxAge: 60000 }
   }))
 var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', "https://apokto.one",);
+    res.header('Access-Control-Allow-Origin', "http://localhost:3000",);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Credentials", "true")
@@ -28,45 +29,34 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
     res.status(200).send('<h3>Apokto API is online. 🐎</h3>')
   })
+
+
 app.post('/create', async (req, res) => {
     var repos = req.body.repos;
     var repolist = Math.random().toString(36).substring(2, 12);
     var dir = "./lists/" + repolist + "/etc/apt/sources.list.d/"
-    try {
-        if (!fs.existsSync(dir)) {
-          fs.mkdirSync(dir, { recursive: true });
-        }
-      } catch (err) {
-        console.error(err);
-      } 
-    var file = fs.createWriteStream(dir + `${repolist}.list`, {
-        flags: 'w'
-      });
+    //check if file exists, if not, make the dir
+    if (!fs.existsSync(dir)){
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    //create .list file
+    var file = dir + `${repolist}.list`
     repos.forEach(repo => {
-        var line = "deb " + repo + "./" + '\r\n'
-        file.write(line)
+      var line = "deb " + repo + "./" + '\r\n'
+      fs.writeFileSync(file, line);
     });
     //generate deb
     var debdir = "./lists/" + repolist + "/DEBIAN/"
     var builddeb = "./lists/" + repolist
-    try {
-      if (!fs.existsSync(debdir)) {
-        fs.mkdirSync(debdir, { recursive: true });
-      }
-    } catch (err) {
-      console.error(err);
-    } 
-    var package = fs.createWriteStream(debdir + `control`, {
-      flags: 'w'
-    });
+    fs.mkdirSync(debdir, { recursive: true })
+    var package = debdir + `control`
     var packagetext = `Package: com.apokto.${repolist} \r\nName: ${repolist} \r\nVersion: 1.0 \r\nArchitecture: iphoneos-arm \r\nSection: Repo_Lists \r\nMaintainer: Wamy-Dev | contact@apokto.one \r\nDescription: Will install all the repos that was generated from list-> ${repolist}.` + " \r\n"
-    package.write(packagetext)
+    fs.writeFileSync(package, packagetext);
     var builddeb = exec(`dpkg-deb --build --root-owner-group ${builddeb}`,
         (error, stdout, stderr) => {
             if (error !== null) {
                 console.log(`exec error: ${error}`);
             }
-            fs.rmSync(__dirname+`/lists/${repolist}`, { recursive: true, force: true });
         });
     req.session.file = repolist
     res.status(200).json({listname: repolist})
@@ -83,20 +73,20 @@ app.get('/download', (req, res) => {
       res.status(200).send("<h3>This is where you download your repo list. 🐎</h3>")
     }
 })
-app.get('/addtorepo', async (req, res) => {
+/*app.get('/addtorepo', async (req, res) => {
   var file = req.session.file;
   if (file) {
-    var deb = `./debs/${file}.deb`
+    var deb = `/debs/${file}.deb`
     try {
-      if (!fs.existsSync("./debs")) {
-        fs.mkdirSync("./debs");
+      if (!fs.existsSync("/debs")) {
+        fs.mkdirSync("/debs");
       }
     } catch (err) {
       console.error(err);
     }
     try {
-      if (!fs.existsSync("./packages")) {
-        fs.mkdirSync("./packages");
+      if (!fs.existsSync("/packages")) {
+        fs.mkdirSync("/packages");
       }
     } catch (err) {
       console.error(err);
@@ -110,13 +100,13 @@ app.get('/addtorepo', async (req, res) => {
       }
       //get and edit packages file
       function createPackages(file){
-        var getpackages = exec(`cp /mnt/user/appdata/nginx/config/apoktorepo/Packages ${__dirname}/packages/`,
+        var getpackages = exec(`cp /mnt/user/appdata/nginx/config/apoktorepo/Packages mnt/user/appdata/apokto/packages/`,
           (error, stdout, stderr) => {
           if (error !== null) {
             console.log(`exec error: ${error}`);
           }
           console.log('recieved')
-          var packages = fs.createWriteStream("./packages/Packages", {
+          var packages = fs.createWriteStream("/packages/Packages", {
             flags: 'a+'
           });
           var stats = fs.statSync(__dirname+`/debs/${file}.deb`);
@@ -125,20 +115,20 @@ app.get('/addtorepo', async (req, res) => {
           packages.write(packagestext)
           console.log('edited')
           //zip and ship
-          var cp = exec(`cp ${__dirname}/packages/Packages ${__dirname}/packages/Packages1`)
-          var bzip2 = exec(`bzip2 ${__dirname}/packages/Packages -f`,
+          var cp = exec(`cp /packages/Packages /packages/Packages1`)
+          var bzip2 = exec(`bzip2 /packages/Packages -f`,
           (error, stdout, stderr) => {
             if (error !== null) {
               console.log(`exec error: ${error}`);
             }
             console.log('zipped')
-            var movezipped = exec(`cp ${__dirname}/packages/Packages.bz2 /mnt/user/appdata/nginx/config/apoktorepo/`, 
+            var movezipped = exec(`cp /mnt/user/appdata/apokto/packages/Packages.bz2 /mnt/user/appdata/nginx/config/apoktorepo/`, 
             (error, stdout, stderr) => {
               if (error !== null) {
                 console.log(`exec error: ${error}`);
               }
               console.log('shipped zipped')
-              var movepackage = exec(`cp ${__dirname}/packages/Packages1 /mnt/user/appdata/nginx/config/apoktorepo/Packages`, 
+              var movepackage = exec(`cp /mnt/user/appdata/apokto/packages/Packages1 /mnt/user/appdata/nginx/config/apoktorepo/Packages`, 
               (error, stdout, stderr) => {
                 if (error !== null) {
                 console.log(`exec error: ${error}`);
@@ -159,6 +149,7 @@ app.get('/addtorepo', async (req, res) => {
     res.status(200).send("<h3>This is where you add your repo to the Apokto Repo. 🐎</h3>")
   }
 })
+*/
 app.listen(port, () => {
     console.log(`Apokto API running on port ${port}`)
 })
