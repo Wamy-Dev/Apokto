@@ -126,7 +126,7 @@ if response.status_code == 200:
 	def ApoktoCustom():
 		N = 10#sets to a 10 digit random string
 		ID = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
-		uploadHavoc = db.collection("repos").document("Havoc")
+		uploadHavoc = db.collection("repos").document("Apokto")
 		uploadHavoc.set({
 				'id': ID,
 				"name": "apokto",
