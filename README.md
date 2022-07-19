@@ -6,11 +6,11 @@ Adding all your favorite repos is hard, there are tweaks like [Flame](http://cyd
   <img src="/assets/lightlogoapokto.png#gh-dark-mode-only" height="200">
 </div>
 
-# Website = ~~[Apokto.one](https://apokto.one)~~ (Not available yet!)
+# Website = [Apokto.one](https://apokto.one)
 
 Here you can add this repo to your package manager and create your own repo list from scratch or a template!
-- To add this repo and get your custom repo list: [repo.apokto.one](https://repo.apokto.one)
-- To create your very own custom repo list:  ~~[apokto.one/build](https://apokto.one/build)~~ (Not available yet!)
+- To add this repo and get your custom repo list: ~~[repo.apokto.one](https://repo.apokto.one)~~ (not fully functional)
+- To create your very own custom repo list:  [apokto.one/build](https://apokto.one/build)
 
 # Features (WIP)
 
