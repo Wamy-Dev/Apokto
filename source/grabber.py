@@ -110,6 +110,33 @@ if response.status_code == 200:
 			json_data[name or altname] = {"repo": repo, "icon": icon, "desc": description, "id": ID}
 		else:
 			print(f'Repo Status={reporesponse.status_code}. Skipping\n##########')	
+	#custom repos
+	def HavocCustom():
+		N = 10#sets to a 10 digit random string
+		ID = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
+		uploadHavoc = db.collection("repos").document("Havoc")
+		uploadHavoc.set({
+				'id': ID,
+				"name": "havoc",
+				'repo': "https://havoc.app",
+				'icon': "https://havoc.app/CydiaIcon.png",
+				'desc': "Havoc repository"
+			}, merge=True)
+		print("Added repo to db using default name.\n##########")
+	def ApoktoCustom():
+		N = 10#sets to a 10 digit random string
+		ID = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
+		uploadHavoc = db.collection("repos").document("Havoc")
+		uploadHavoc.set({
+				'id': ID,
+				"name": "apokto",
+				'repo': "https://repo.apokto.one",
+				'icon': "https://repo.apokto.one/CydiaIcon.png",
+				'desc': "The best repo for other repos"
+			}, merge=True)
+		print("Added repo to db using default name.\n##########")
+	HavocCustom()
+	ApoktoCustom()
 	json_data = json.dumps(json_data)
 	json_file = open("repos.json", "w")
 	json_file.write(json_data)

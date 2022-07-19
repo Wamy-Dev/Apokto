@@ -94,7 +94,7 @@ export default function AboutPage () {
                     <a href="https://homeonacloud.com/donate" target="_blank" rel="noreferrer" style={{color: "white"}}>Donate to the project</a>. Here you can donate to the project to help pay for the servers that run Apokto.
                     </p>
                     <p style={{ fontSize: "25px", fontFamily: 'Cabin, sans-serif', color:"white", paddingLeft: "30px", paddingRight: "30px"}}>
-                    <a href="https://homeonacloud.com/donate" target="_blank" rel="noreferrer" style={{color: "white"}}>Join the Discord</a>. Here you can join the Discord server where you can get help, view my other projects and chat with others.
+                    <a href="https://discord.gg/47SnjxgBFb" target="_blank" rel="noreferrer" style={{color: "white"}}>Join the Discord</a>. Here you can join the Discord server where you can get help, view my other projects and chat with others.
                     </p>
                 </div>
                 <Center style={{paddingTop: "100px"}}>
@@ -159,7 +159,7 @@ export default function AboutPage () {
                     <a href="https://homeonacloud.com/donate" target="_blank" rel="noreferrer" style={{color: "white"}}>Donate to the project</a>. Here you can donate to the project to help pay for the servers that run Apokto.
                     </p>
                     <p style={{ fontSize: "15px", fontFamily: 'Cabin, sans-serif', color:"white", paddingLeft: "10px", paddingRight: "10px"}}>
-                    <a href="https://homeonacloud.com/donate" target="_blank" rel="noreferrer" style={{color: "white"}}>Join the Discord</a>. Here you can join the Discord server where you can get help, view my other projects and chat with others.
+                    <a href="https://discord.gg/47SnjxgBFb" target="_blank" rel="noreferrer" style={{color: "white"}}>Join the Discord</a>. Here you can join the Discord server where you can get help, view my other projects and chat with others.
                     </p>
                 <Center style={{paddingTop: "200px"}}>
                     <p style={{ fontSize: "20px", fontFamily: 'Cabin, sans-serif', color:"white"}}>
