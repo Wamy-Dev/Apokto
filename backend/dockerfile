@@ -1,4 +1,5 @@
 FROM node:16
+WORKDIR /apokto
 COPY package*.json ./
 RUN npm install --omit=dev
 COPY . .

@@ -24,7 +24,6 @@ export default function RepoTable() {
   const [sopened, setSOpened] = useState(false);
   const [tooltipopen, setToolTipOpen] = useState(false);
   const [repolist, setRepoList] = useState("random10");
-  const [url, setUrl] = useState("http://localhost:3001")
   useEffect(() => {
     const onPageLoad = () => {
       setLoadingVisible(false);
@@ -131,7 +130,7 @@ export default function RepoTable() {
   })
   var list = []
   function sendList() {
-    fetch(`${url}/create`, {
+    fetch('https://api.apokto.one/create', {
       method: 'post',
       credentials: 'include',
       headers: {
@@ -236,11 +235,11 @@ export default function RepoTable() {
           <p style={{fontFamily:"Mukta"}}>Please click the "Download" button if you prefer to manually install your repo.</p>
           <p style={{fontSize: "sm", fontFamily:"Mukta"}}>If you found this service useful, please consider donating.</p>
           <center>
-          <Button component="a" href='http://localhost:3001/download' color="mainred" style={{marginRight: "20px"}}>
+          <Button component="a" href='https://api.apokto.one/download' color="mainred" style={{marginRight: "20px"}}>
             Download
           </Button>
           <Button onClick={() => {
-            fetch(`${url}/addtorepo`, {
+            fetch('https://api.apokto.one/addtorepo', {
               method: 'get',
               credentials: 'include',
             }).then(response => response.status).then((r) => {

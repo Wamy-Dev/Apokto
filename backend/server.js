@@ -16,7 +16,7 @@ app.use(session({
     cookie: { maxAge: 60000 }
   }))
 var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', "http://localhost:3000",);
+    res.header('Access-Control-Allow-Origin', "https://apokto.one",);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Credentials", "true")
@@ -27,10 +27,8 @@ app.use(helmet());
 app.use(cookieParser())
 app.use(bodyParser.json());
 app.get('/', (req, res) => {
-    res.status(200).send('<h3>Apokto API is online. 🐎</h3>')
+    res.status(200).send('<h3><center>Apokto API is online. 🐎</center></h3>')
   })
-
-
 app.post('/create', async (req, res) => {
     var repos = req.body.repos;
     var repolist = Math.random().toString(36).substring(2, 12);
