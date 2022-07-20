@@ -7,6 +7,8 @@ const util = require('util')
 const bodyParser = require('body-parser');
 require('dotenv').config();
 const { exec } = require('child_process');
+const md5File = require('md5-file')
+
 const app = express()
 const port = 3001
 app.use(session({
@@ -16,7 +18,7 @@ app.use(session({
     cookie: { maxAge: 60000 }
   }))
 var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', "https://apokto.one",);
+    res.header('Access-Control-Allow-Origin', "http://localhost:3000",);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Credentials", "true")
@@ -48,7 +50,7 @@ app.post('/create', async (req, res) => {
     var builddeb = "./lists/" + repolist
     fs.mkdirSync(debdir, { recursive: true })
     var package = debdir + `control`
-    var packagetext = `Package: com.apokto.${repolist} \r\nName: ${repolist} \r\nVersion: 1.0 \r\nArchitecture: iphoneos-arm \r\nSection: Repo_Lists \r\nMaintainer: Wamy-Dev | contact@apokto.one \r\nDescription: Will install all the repos that was generated from list-> ${repolist}.` + " \r\n"
+    var packagetext = `Package: com.apokto.${repolist} \r\nName: ${repolist} \r\nVersion: 1.0 \r\nArchitecture: iphoneos-arm \r\nSection: Repo_Lists \r\nMaintainer: Wamy-Dev \r\nDescription: Will install all the repos that was generated from list-> ${repolist}.` + " \r\n"
     fs.writeFileSync(package, packagetext);
     var builddeb = exec(`dpkg-deb --build --root-owner-group ${builddeb}`,
         (error, stdout, stderr) => {
@@ -71,83 +73,48 @@ app.get('/download', (req, res) => {
       res.status(200).send("<h3>This is where you download your repo list. 🐎</h3>")
     }
 })
-/*app.get('/addtorepo', async (req, res) => {
+app.get('/addtorepo', async (req, res) => {
   var file = req.session.file;
   if (file) {
-    var deb = `/debs/${file}.deb`
-    try {
-      if (!fs.existsSync("/debs")) {
-        fs.mkdirSync("/debs");
-      }
-    } catch (err) {
-      console.error(err);
+    function createPackage(file){
+      //get current packages file
+      fs.copyFileSync("/mnt/appdata/nginx/repo.apokto.one/Packages", `./lists/${file}/Packages`);
+      var packagesfile = fs.createWriteStream(`./lists/${file}/Packages`, {
+        flags: "a+"
+      })
+      var stats = fs.statSync(`./lists/${file}.deb`);
+      var fileSize = stats.size;
+      const md5sum = md5File.sync(`./lists/${file}.deb`)
+      var packagestext = `\r\nPackage: com.apokto.${file} \r\nVersion: 1.0 \r\nArchitecture: iphoneos-arm \r\nMaintainer: Wamy-Dev \r\nFilename: debs/${file}.deb \r\nSize: ${fileSize} \r\nMD5sum: ${md5sum} \r\nSection: Repo_Lists \r\nDescription: Repo list generated at repo.apokto.one. Installs on top of your current repo list. Unless you generated this list, it is not recommended to use. To generate your own, go to https://apokto.one/build. \r\nAuthor: Wamy-Dev \r\nName: ${file}.list`
+      packagesfile.write(packagestext, function() {
+        fs.copyFileSync(`./lists/${file}/Packages`, `./lists/${file}/Packagesbk`);
+        zipPackage(file)
+      })
     }
-    try {
-      if (!fs.existsSync("/packages")) {
-        fs.mkdirSync("/packages");
-      }
-    } catch (err) {
-      console.error(err);
-    }
-    //move file
-    try {
-    var move = exec(`mv ${__dirname}/lists/${file}.deb ${__dirname}/debs/`, 
-    (error, stdout, stderr) => {
-      if (error !== null) {
-          console.log(`exec error: ${error}`);
-      }
-      //get and edit packages file
-      function createPackages(file){
-        var getpackages = exec(`cp /mnt/user/appdata/nginx/config/apoktorepo/Packages mnt/user/appdata/apokto/packages/`,
-          (error, stdout, stderr) => {
+    async function zipPackage(file) {
+      var bzip2 = exec(`bzip2 ./lists/${file}/Packages -f`,
+        (error, stdout, stderr) => {
           if (error !== null) {
             console.log(`exec error: ${error}`);
-          }
-          console.log('recieved')
-          var packages = fs.createWriteStream("/packages/Packages", {
-            flags: 'a+'
-          });
-          var stats = fs.statSync(__dirname+`/debs/${file}.deb`);
-          var fileSize = stats.size;
-          var packagestext = `\r\nPackage: com.apokto.${file} \r\nVersion: 1.0 \r\nArchitecture: iphoneos-arm \r\nMaintainer: Wamy-Dev | contact@apokto.one \r\nFilename: debs//${file}.deb \r\nFilesize: ${fileSize} \r\nSection: Repo_Lists \r\nDescription: Repo list generated at repo.apokto.one. Installs on top of your current repo list. Unless you generated this list, it is not recommended to use. To generate your own, go to https://apokto.one/build. \r\nAuthor: Wamy-Dev | Contact@apokto.one \r\nDepiction: https://repo.apokto.one/?/index.html \r\nName: ${file} | apokto.one`
-          packages.write(packagestext)
-          console.log('edited')
-          //zip and ship
-          var cp = exec(`cp /packages/Packages /packages/Packages1`)
-          var bzip2 = exec(`bzip2 /packages/Packages -f`,
-          (error, stdout, stderr) => {
-            if (error !== null) {
-              console.log(`exec error: ${error}`);
-            }
-            console.log('zipped')
-            var movezipped = exec(`cp /mnt/user/appdata/apokto/packages/Packages.bz2 /mnt/user/appdata/nginx/config/apoktorepo/`, 
-            (error, stdout, stderr) => {
-              if (error !== null) {
-                console.log(`exec error: ${error}`);
-              }
-              console.log('shipped zipped')
-              var movepackage = exec(`cp /mnt/user/appdata/apokto/packages/Packages1 /mnt/user/appdata/nginx/config/apoktorepo/Packages`, 
-              (error, stdout, stderr) => {
-                if (error !== null) {
-                console.log(`exec error: ${error}`);
-                }
-                console.log('shipped edited')
-              })
-            })
-          })
-        }) 
+            }})
+          shipPackage(file); 
       }
-      createPackages(file)
-      res.sendStatus(201)
-    })
-  } catch (err) {
-    console.log(err)
-  }
+    function shipPackage(file) {
+      fs.copyFileSync(`./lists/${file}/Packagesbk`, `/mnt/appdata/nginx/repo.apokto.one/Packages`,
+        fs.copyFileSync(`./lists/${file}/Packages.bz2`, `/mnt/appdata/nginx/repo.apokto.one/Packages.bz2`,
+          fs.copyFileSync(`./lists/${file}.deb`, `/mnt/appdata/nginx/repo.apokto.one/debs/${file}.deb`,
+          console.log(`Added ${file} to repo.apokto.one.`)
+          )
+        )
+      )
+    }
+    await createPackage(file);
+    res.sendStatus(201)
   } else {
     res.status(200).send("<h3>This is where you add your repo to the Apokto Repo. 🐎</h3>")
   }
 })
-*/
+
 app.listen(port, () => {
     console.log(`Apokto API running on port ${port}`)
 })
