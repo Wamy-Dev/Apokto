@@ -18,7 +18,7 @@ app.use(session({
     cookie: { maxAge: 60000 }
   }))
 var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', "http://localhost:3000",);
+    res.header('Access-Control-Allow-Origin', "https://apokto.one",);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Credentials", "true")
@@ -42,8 +42,11 @@ app.post('/create', async (req, res) => {
     //create .list file
     var file = dir + `${repolist}.list`
     repos.forEach(repo => {
-      var line = "deb " + repo + "./" + '\r\n'
-      fs.writeFileSync(file, line);
+      var line = "deb " + repo + " ./" + '\r\n'
+      fs.writeFileSync(file, line, {
+        encoding: "utf8",
+        flag: "a+"
+      });
     });
     //generate deb
     var debdir = "./lists/" + repolist + "/DEBIAN/"
@@ -85,7 +88,7 @@ app.get('/addtorepo', async (req, res) => {
       var stats = fs.statSync(`./lists/${file}.deb`);
       var fileSize = stats.size;
       const md5sum = md5File.sync(`./lists/${file}.deb`)
-      var packagestext = `\r\nPackage: com.apokto.${file} \r\nVersion: 1.0 \r\nArchitecture: iphoneos-arm \r\nMaintainer: Wamy-Dev \r\nFilename: debs/${file}.deb \r\nSize: ${fileSize} \r\nMD5sum: ${md5sum} \r\nSection: Repo_Lists \r\nDescription: Repo list generated at repo.apokto.one. Installs on top of your current repo list. Unless you generated this list, it is not recommended to use. To generate your own, go to https://apokto.one/build. \r\nAuthor: Wamy-Dev \r\nName: ${file}.list`
+      var packagestext = `\r\nPackage: com.apokto.${file} \r\nVersion: 1.0 \r\nArchitecture: iphoneos-arm \r\nMaintainer: Wamy-Dev \r\nFilename: debs/com.apokto.${file}.deb \r\nSize: ${fileSize} \r\nMD5sum: ${md5sum} \r\nSection: Repo_Lists \r\nDescription: Repo list generated at repo.apokto.one. Installs on top of your current repo list. Unless you generated this list, it is not recommended to use. To generate your own, go to https://apokto.one/build. \r\nAuthor: Wamy-Dev \r\nName: ${file}.list`
       packagesfile.write(packagestext, function() {
         fs.copyFileSync(`./lists/${file}/Packages`, `./lists/${file}/Packagesbk`);
         zipPackage(file)
@@ -100,10 +103,10 @@ app.get('/addtorepo', async (req, res) => {
           shipPackage(file); 
       }
     function shipPackage(file) {
-      fs.copyFileSync(`./lists/${file}/Packagesbk`, `/mnt/appdata/nginx/repo.apokto.one/Packages`,
-        fs.copyFileSync(`./lists/${file}/Packages.bz2`, `/mnt/appdata/nginx/repo.apokto.one/Packages.bz2`,
-          fs.copyFileSync(`./lists/${file}.deb`, `/mnt/appdata/nginx/repo.apokto.one/debs/${file}.deb`,
-          console.log(`Added ${file} to repo.apokto.one.`)
+      fs.copyFileSync(`/apokto/lists/${file}/Packagesbk`, `/mnt/appdata/nginx/repo.apokto.one/Packages`,
+        fs.copyFileSync(`/apokto/lists/${file}/Packages.bz2`, `/mnt/appdata/nginx/repo.apokto.one/Packages.bz2`,
+          fs.copyFileSync(`/apokto/lists/${file}.deb`, `/mnt/appdata/nginx/repo.apokto.one/debs/com.apokto.${file}.deb`,
+            console.log(`Added ${file} to repo.apokto.one.`)
           )
         )
       )
