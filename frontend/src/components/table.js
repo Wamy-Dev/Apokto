@@ -239,7 +239,7 @@ export default function RepoTable() {
             Download
           </Button>
           <Button onClick={() => {
-            fetch('https://api.apokto.one:3001', {
+            fetch('https://api.apokto.one/addtorepo', {
               method: 'get',
               credentials: 'include',
             }).then(response => response.status).then((r) => {
@@ -247,7 +247,7 @@ export default function RepoTable() {
                 setOpened(false)
                 setSOpened(true)
               } else {
-                console.log("error adding to repo.")
+                alert("Error adding to repo. Please try again later.")
               }
             })
           }} 

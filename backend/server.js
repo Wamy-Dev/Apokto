@@ -103,16 +103,21 @@ app.get('/addtorepo', async (req, res) => {
           shipPackage(file); 
       }
     function shipPackage(file) {
-      fs.copyFileSync(`/apokto/lists/${file}/Packagesbk`, `/mnt/appdata/nginx/repo.apokto.one/Packages`,
-        fs.copyFileSync(`/apokto/lists/${file}/Packages.bz2`, `/mnt/appdata/nginx/repo.apokto.one/Packages.bz2`,
-          fs.copyFileSync(`/apokto/lists/${file}.deb`, `/mnt/appdata/nginx/repo.apokto.one/debs/com.apokto.${file}.deb`,
-            console.log(`Added ${file} to repo.apokto.one.`)
+      try{
+        fs.copyFileSync(`/apokto/lists/${file}/Packagesbk`, `/mnt/appdata/nginx/repo.apokto.one/Packages`,
+          fs.copyFileSync(`/apokto/lists/${file}/Packages.bz2`, `/mnt/appdata/nginx/repo.apokto.one/Packages.bz2`,
+            fs.copyFileSync(`/apokto/lists/${file}.deb`, `/mnt/appdata/nginx/repo.apokto.one/debs/com.apokto.${file}.deb`,
+              res.sendStatus(201)
           )
         )
       )
+      } catch (e) {
+        res.sendStatus(404)
+        console.log(e)
+      }
     }
     await createPackage(file);
-    res.sendStatus(201)
+    
   } else {
     res.status(200).send("<h3>This is where you add your repo to the Apokto Repo. 🐎</h3>")
   }
