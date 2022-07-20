@@ -103,21 +103,30 @@ app.get('/addtorepo', async (req, res) => {
           shipPackage(file); 
       }
     function shipPackage(file) {
-      try{
-        fs.copyFileSync(`/apokto/lists/${file}/Packagesbk`, `/mnt/appdata/nginx/repo.apokto.one/Packages`,
-          fs.copyFileSync(`/apokto/lists/${file}/Packages.bz2`, `/mnt/appdata/nginx/repo.apokto.one/Packages.bz2`,
-            fs.copyFileSync(`/apokto/lists/${file}.deb`, `/mnt/appdata/nginx/repo.apokto.one/debs/com.apokto.${file}.deb`,
-              res.sendStatus(201)
-          )
-        )
-      )
-      } catch (e) {
-        res.sendStatus(404)
-        console.log(e)
-      }
+      fs.copyFile(`/apokto/lists/${file}/Packagesbk`, `/mnt/appdata/nginx/repo.apokto.one/Packages`, (err) => {
+        if (err) {
+          res.sendStatus(404)
+        }
+        else {
+          fs.copyFile(`/apokto/lists/${file}/Packages.bz2`, `/mnt/appdata/nginx/repo.apokto.one/Packages.bz2`, (err) => {
+            if (err) {
+              res.sendStatus(404)
+            }
+            else {
+              fs.copyFile(`/apokto/lists/${file}.deb`, `/mnt/appdata/nginx/repo.apokto.one/debs/com.apokto.${file}.deb`, (err) => {
+                if (err) {
+                  res.sendStatus(404)
+                }
+                else {
+                  res.sendStatus(201)
+                }
+              });
+            }
+          });
+        }
+      })
     }
     await createPackage(file);
-    
   } else {
     res.status(200).send("<h3>This is where you add your repo to the Apokto Repo. 🐎</h3>")
   }
