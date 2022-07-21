@@ -36,31 +36,62 @@ if response.status_code == 200:
         for f in os.listdir("./sources/configs/index-list/"):
             list.append(f[:-5])
     print("Repos total:",len(list))
+    current = 0
     #now request for each
     for r in list:
         repodata = requests.get(f"https://api.canister.me/v1/community/repositories/search?query={r}&responseFields=name,description,uri")
         decodedrepodata = repodata.content.decode()
         data = json.loads(decodedrepodata)
-        if data["status"] == "Successful":
-            N = 10
-            ID = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
-            name = data["data"][0]["name"]
-            namelower = name.lower()
-            description = data["data"][0]["description"]
-            url = data["data"][0]["uri"]
-            repoicon = f"{url}/CydiaIcon.png"
-            #now upload to firebase
-            upload = db.collection("repos").document(name)
-            upload.set({
-                "id": ID,
-                "name": namelower,
-                "repo": url,
-                "icon": repoicon,
-                "descirption": description
+        total = len(list)
+        try:
+            if data["status"] == "Successful" and data["data"][0]["name"]:
+                current+=1
+                N = 10
+                ID = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
+                name = data["data"][0]["name"]
+                namelower = name.lower()
+                description = data["data"][0]["description"]
+                url = data["data"][0]["uri"]
+                repoicon = f"{url}/CydiaIcon.png"
+                repoicontest = requests.get(repoicon, timeout=3)
+                if repoicontest.status_code != 200:
+                    repoicon = "https://github.com/Wamy-Dev/Apokto/blob/main/assets/error.png?raw=true"
+                else:
+                    repoicon = f"{url}/CydiaIcon.png"
+                #now upload to firebase
+                try:
+                    upload = db.collection("repos").document(name)
+                    upload.set({
+                        "id": ID,
+                        "name": namelower,
+                        "repo": url,
+                        "icon": repoicon,
+                        "desc": description,
+                        "number": current
+                    }, merge=True)
+                    print(f"### Uploaded {name} to database ###")
+                except:
+                    print("### Bad repo. Skipping ###")
+            else:
+                print("### Bad repo. Skipping ###")
+        except:
+            print("### Bad repo. Skipping ###") 
+    #custom repos
+    def ApoktoCustom(current):
+        current += 1
+        N = 10
+        ID = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
+        uploadApokto = db.collection("repos").document("Apokto")
+        uploadApokto.set({
+            'id': ID,
+            'name': "apokto",
+            'repo': "https://repo.apokto.one",
+            'icon': "https://repo.apokto.one/CydiaIcon.png",
+            'desc': "The best repo for other repos",
+            "number": current
             }, merge=True)
-            print(f"### Uploaded {name} to database ###")
-        else:
-            print("### Bad repo. Skipping ###")
+        print("### Uploaded Apokto to database ###")
+    ApoktoCustom(current)     
     try:
         now=datetime.now()
         current_time = now.strftime("%H:%M:%S")
