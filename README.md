@@ -9,14 +9,14 @@ Adding all your favorite repos is hard, there are tweaks like [Flame](http://cyd
 # Website = [Apokto.one](https://apokto.one)
 
 Here you can add this repo to your package manager and create your own repo list from scratch or a template!
-- To add this repo and get your custom repo list: ~~[repo.apokto.one](https://repo.apokto.one)~~ (not fully functional)
+- To add this repo and get your custom repo list: [repo.apokto.one](https://repo.apokto.one)
 - To create your very own custom repo list:  [apokto.one/build](https://apokto.one/build)
 
 # Features (WIP)
 
 - [x] Gets newest repos every 4 hours.
 - [x] A beautiful frontend.
-- [ ] Saves custom repo list to the repository within seconds.
+- [X] Saves custom repo list to the repository within seconds.
 - [ ] Allows remodifying your custom repolist.
 - [x] Easy to use on mobile.
 
