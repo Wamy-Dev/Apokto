@@ -24,7 +24,6 @@ def delete_collection(coll_ref, batch_size):
 			deleted = deleted + 1
 		if deleted >= batch_size:
 			return delete_collection(coll_ref, batch_size)
-
 response = requests.get("https://api.canister.me/v1/")
 if response.status_code == 200:
     delete_collection(db.collection("repos"), 1000)
@@ -53,12 +52,12 @@ if response.status_code == 200:
             #now upload to firebase
             upload = db.collection("repos").document(name)
             upload.set({
-					"id": ID,
-					"name": namelower,
-					"repo": url,
-					"icon": repoicon,
-					"descirption": description
-					}, merge=True)
+                "id": ID,
+                "name": namelower,
+                "repo": url,
+                "icon": repoicon,
+                "descirption": description
+            }, merge=True)
             print(f"### Uploaded {name} to database ###")
         else:
             print("### Bad repo. Skipping ###")
