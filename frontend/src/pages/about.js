@@ -115,33 +115,33 @@ export default function AboutPage () {
                         </Link>
                     </div>
                     <div>
-                        <h1 style={{ fontSize: "25px", fontFamily: 'Mukta, sans-serif', color:"white"}}>
+                        <h1 style={{ fontSize: "20px", fontFamily: 'Mukta, sans-serif', color:"white"}}>
                             Why use Apokto? Because it's the easiest way to get the repos you want.
                         </h1>
                     </div>
                     <div>
-                        <h3 style={{ fontSize: "25px", fontFamily: 'Mukta, sans-serif', color:"white", paddingTop: "50px", paddingRight: "10px"}}>
+                        <h3 style={{ fontSize: "20px", fontFamily: 'Mukta, sans-serif', color:"white", paddingTop: "50px", paddingRight: "10px"}}>
                             Apokto is used by hundreds to create their perfect repo list for their iOS jailbroken device.
                         </h3>
-                        <h3 style={{ fontSize: "25px", fontFamily: 'Mukta, sans-serif', color:"white", paddingTop: "30px", paddingRight: "10px"}}>
+                        <h3 style={{ fontSize: "20px", fontFamily: 'Mukta, sans-serif', color:"white", paddingTop: "30px", paddingRight: "10px"}}>
                             Like a horse, Apokto is fast, and intelligent, making your repo lists available basically instantly. 
                         </h3>
                     </div>
                     </FadeIn>
             </ParallaxLayer>
             <ParallaxLayer offset={1} style={{backgroundImage: `url(${SecondWave})`, backgroundSize: "cover", paddingLeft: "10px"}}>
-                    <h1 style={{ fontSize: "20px", fontFamily: 'Mukta, sans-serif', color:"white"}}>
+                    <h1 style={{ fontSize: "17px", fontFamily: 'Mukta, sans-serif', color:"white"}}>
                         Why should I use Apokto?
                     </h1>
-                    <p style={{ fontSize: "15px", fontFamily: 'Cabin, sans-serif', color:"white", paddingLeft: "10px", paddingRight: "10px"}}>
+                    <p style={{ fontSize: "13px", fontFamily: 'Cabin, sans-serif', color:"white", paddingLeft: "10px", paddingRight: "10px"}}>
                         There is no real reason to use Apokto, unless you like copying and pasting all of your favorite repos in your package manager, repetitvely and slowly.
                         <br/>
                         With Apokto, everyone wins. You get a nice long list of quality repos, and more jailbreak developers have the opportunity to show of their work with the increased exposure of their repository.
                     </p>
-                    <h1 style={{ fontSize: "20px", fontFamily: 'Mukta, sans-serif', color:"white", paddingRight: "10px"}}>
+                    <h1 style={{ fontSize: "17px", fontFamily: 'Mukta, sans-serif', color:"white", paddingRight: "10px"}}>
                         Why does this exist?
                     </h1>
-                    <p style={{ fontSize: "15px", fontFamily: 'Cabin, sans-serif', color:"white", paddingLeft: "10px", marginRight: "10px"}}>
+                    <p style={{ fontSize: "13px", fontFamily: 'Cabin, sans-serif', color:"white", paddingLeft: "10px", marginRight: "10px"}}>
                         Apokto exists because I have been a long time iOS jailbreak enthusiast (first iPhone ever jailbroken was the iPhone 4S) and finding and adding repos to get the tweaks I have been wanting has been hard.
                         Whether trying to find a small theme that I saw on Reddit, or discovering new tweaks to enhance my device any way, finding the right repo is hard. Throughout the years, there have been tweaks like Flame, or even Cydown
                         that has made it easier to add a lot of repositories at once, but they still had major flaws. Now that I have experience in coding and am finally fed up with the status of repositories, I have made Apokto, the easiest way to
@@ -149,16 +149,16 @@ export default function AboutPage () {
                     </p>
             </ParallaxLayer>
             <ParallaxLayer offset={2} style={{backgroundImage: `url(${ThirdWave})`, backgroundSize: "cover", paddingLeft: "10px"}}>
-            <h1 style={{ fontSize: "20px", fontFamily: 'Mukta, sans-serif', color:"white"}}>
+            <h1 style={{ fontSize: "17px", fontFamily: 'Mukta, sans-serif', color:"white"}}>
                         Links: 
                     </h1>
-                    <p style={{ fontSize: "15px", fontFamily: 'Cabin, sans-serif', color:"white", paddingLeft: "10px", paddingRight: "10px"}}>
+                    <p style={{ fontSize: "13px", fontFamily: 'Cabin, sans-serif', color:"white", paddingLeft: "10px", paddingRight: "10px"}}>
                         <a href="https://github.com/Wamy-Dev/Apokto" target="_blank" rel="noreferrer" style={{color: "white"}}>View the Github Repo</a>. Here you can report bugs, give feedback, and contribute to the code.
                     </p>
-                    <p style={{ fontSize: "15px", fontFamily: 'Cabin, sans-serif', color:"white", paddingLeft: "10px", paddingRight: "10px"}}>
+                    <p style={{ fontSize: "13px", fontFamily: 'Cabin, sans-serif', color:"white", paddingLeft: "10px", paddingRight: "10px"}}>
                     <a href="https://homeonacloud.com/donate" target="_blank" rel="noreferrer" style={{color: "white"}}>Donate to the project</a>. Here you can donate to the project to help pay for the servers that run Apokto.
                     </p>
-                    <p style={{ fontSize: "15px", fontFamily: 'Cabin, sans-serif', color:"white", paddingLeft: "10px", paddingRight: "10px"}}>
+                    <p style={{ fontSize: "13px", fontFamily: 'Cabin, sans-serif', color:"white", paddingLeft: "10px", paddingRight: "10px"}}>
                     <a href="https://discord.gg/47SnjxgBFb" target="_blank" rel="noreferrer" style={{color: "white"}}>Join the Discord</a>. Here you can join the Discord server where you can get help, view my other projects and chat with others.
                     </p>
                 <Center style={{paddingTop: "200px"}}>
