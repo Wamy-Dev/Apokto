@@ -9,20 +9,21 @@ Adding all your favorite repos is hard, there are tweaks like [Flame](http://cyd
 # Website = [Apokto.one](https://apokto.one)
 
 Here you can add this repo to your package manager and create your own repo list from scratch or a template!
-- To add this repo and get your custom repo list: [repo.apokto.one](https://repo.apokto.one)
+- To add this repo and use your own custom repo list: [repo.apokto.one](https://repo.apokto.one)
 - To create your very own custom repo list:  [apokto.one/build](https://apokto.one/build)
 
-# Features (WIP)
+# Features
 
 - [x] Gets newest repos every 4 hours.
 - [x] A beautiful frontend.
 - [X] Saves custom repo list to the repository within seconds.
 - [ ] Allows remodifying your custom repolist.
 - [x] Easy to use on mobile.
+- [x] Download as .deb file for easy backups.
 
 # Piracy
 
-Usually, I am a pirate friendly developer but this is a project where piracy will not be allowed. Jailbreak package developers work very hard on their projects and I don't want to hurt them in anyway. [Parcility.co](https://parcility.co/), where all the repositories essentially come from, also does not condone piracy in their repo lists, so I made it easy on myself and just not allowed it on this repo. 
+Usually, I am a pirate friendly developer but this is a project where piracy will not be allowed. Jailbreak package developers work very hard on their projects and I don't want to hurt those developers in any way. [Parcility.co](https://parcility.co/), where all the repositories essentially come from, also does not condone piracy in their repo lists, so I made it easy on myself and just not allowed it on this repo. 
 
 # How can I help?
 
