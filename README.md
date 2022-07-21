@@ -23,7 +23,7 @@ Here you can add this repo to your package manager and create your own repo list
 
 # Piracy
 
-Usually, I am a pirate friendly developer but this is a project where piracy will not be allowed. Jailbreak package developers work very hard on their projects and I don't want to hurt those developers in any way. [Parcility.co](https://parcility.co/), where all the repositories essentially come from, also does not condone piracy in their repo lists, so I made it easy on myself and just not allowed it on this repo. 
+Usually, I am a pirate friendly developer but this is a project where piracy will not be allowed. Jailbreak package developers work very hard on their projects and I don't want to hurt those developers in any way. [Canister.me](https://canister.me/), where all the repositories essentially come from, does host piracy repos, but again, this is not a piracy oriented project like many of my others. I made it easy on myself and just not allowed it on this repo. 
 
 # How can I help?
 
