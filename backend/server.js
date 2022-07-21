@@ -88,19 +88,56 @@ app.get('/addtorepo', async (req, res) => {
       var stats = fs.statSync(`./lists/${file}.deb`);
       var fileSize = stats.size;
       const md5sum = md5File.sync(`./lists/${file}.deb`)
-      var packagestext = `\r\nPackage: com.apokto.${file} \r\nVersion: 1.0 \r\nArchitecture: iphoneos-arm \r\nMaintainer: Wamy-Dev \r\nFilename: debs/com.apokto.${file}.deb \r\nSize: ${fileSize} \r\nMD5sum: ${md5sum} \r\nSection: Repo_Lists \r\nDescription: Repo list generated at repo.apokto.one. Installs on top of your current repo list. Unless you generated this list, it is not recommended to use. To generate your own, go to https://apokto.one/build. \r\nAuthor: Wamy-Dev \r\nName: ${file}.list`
+      var packagestext = `\nPackage: com.apokto.${file}\nVersion: 1.0\nArchitecture: iphoneos-arm\nMaintainer: Wamy-Dev\nFilename: debs/com.apokto.${file}.deb\nSize: ${fileSize}\nMD5sum: ${md5sum}\nSection: Repo_Lists\nDescription: Repo list stored at https://repo.apokto.one. Installs on top of your current repo list, easily removable like any other package. Unless you generated this list, it is not recommended to use. To generate your own, go to https://apokto.one/build.\nAuthor: Wamy-Dev\nName: ${file}.list` + "\n"
       packagesfile.write(packagestext, function() {
         fs.copyFileSync(`./lists/${file}/Packages`, `./lists/${file}/Packagesbk`);
         zipPackage(file)
       })
     }
     async function zipPackage(file) {
-      var bzip2 = exec(`bzip2 ./lists/${file}/Packages -f`,
+      var bzip2 = exec(`bzip2 -f -k ./lists/${file}/Packages`,
         (error, stdout, stderr) => {
           if (error !== null) {
             console.log(`exec error: ${error}`);
-            }})
-          shipPackage(file); 
+            }
+          else {
+            var gzip = exec(`gzip -k ./lists/${file}/Packages`,
+              (error, stdout, stderr) => {
+                if (error !== null) {
+                console.log(`exec error: ${error}`);
+                }
+                else {
+                  var lzma = exec(`lzma -k ./lists/${file}/Packages`,
+                    (error, stdout, stderr) => {
+                      if (error !== null) {
+                      console.log(`exec error: ${error}`);
+                      }
+                      else {
+                        var xz = exec(`xz -k ./lists/${file}/Packages`,
+                          (error, stdout, stderr) => {
+                            if (error !== null) {
+                            console.log(`exec error: ${error}`);
+                            }
+                            else {
+                              var zst = exec(`zstd -k ./lists/${file}/Packages`,
+                          (error, stdout, stderr) => {
+                            if (error !== null) {
+                            console.log(`exec error: ${error}`);
+                            }
+                            else {
+                              shipPackage(file)
+                          }
+                        })
+                          }
+                        })
+                      }
+                  })
+                }
+              })
+            }
+          })
+      
+      
       }
     function shipPackage(file) {
       fs.copyFile(`/apokto/lists/${file}/Packagesbk`, `/mnt/appdata/nginx/repo.apokto.one/Packages`, (err) => {
@@ -118,7 +155,35 @@ app.get('/addtorepo', async (req, res) => {
                   res.sendStatus(404)
                 }
                 else {
-                  res.sendStatus(201)
+                  fs.copyFile(`/apokto/lists/${file}/Packages.gz`, `/mnt/appdata/nginx/repo.apokto.one/Packages.gz`, (err) => {
+                    if (err) {
+                      res.sendStatus(404)
+                    }
+                    else {
+                      fs.copyFile(`/apokto/lists/${file}/Packages.lzma`, `/mnt/appdata/nginx/repo.apokto.one/Packages.lzma`, (err) => {
+                        if (err) {
+                          res.sendStatus(404)
+                        }
+                        else {
+                          fs.copyFile(`/apokto/lists/${file}/Packages.xz`, `/mnt/appdata/nginx/repo.apokto.one/Packages.xz`, (err) => {
+                            if (err) {
+                              res.sendStatus(404)
+                            }
+                            else {
+                              fs.copyFile(`/apokto/lists/${file}/Packages.zst`, `/mnt/appdata/nginx/repo.apokto.one/Packages.zst`, (err) => {
+                                if (err) {
+                                  res.sendStatus(404)
+                                }
+                                else {
+                                  res.sendStatus(201)
+                                }
+                              });
+                            }
+                          });
+                        }
+                      });
+                    }
+                  });
                 }
               });
             }

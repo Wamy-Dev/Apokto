@@ -2,6 +2,7 @@ FROM node:16
 WORKDIR /apokto
 COPY package*.json ./
 RUN npm install --omit=dev
+RUN apt update && apt install -y zstd
 COPY . .
 EXPOSE 3001
 CMD [ "node", "server.js" ]
