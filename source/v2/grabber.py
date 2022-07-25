@@ -9,6 +9,8 @@ from datetime import datetime
 import string
 from git import Repo
 import os
+import shutil
+
 #env variables
 CRONMONITORING = config("CRONMONITORING")
 #firestore
@@ -52,12 +54,18 @@ if response.status_code == 200:
                 namelower = name.lower()
                 description = data["data"][0]["description"]
                 url = data["data"][0]["uri"]
+                urltest = requests.get(url, timeout=3)
+                if urltest.ok:
+                    url = data["data"][0]["uri"]
+                else:
+                    print(f"### {name} is a bad repo. Skipping ###")
+                    continue
                 repoicon = f"{url}/CydiaIcon.png"
                 repoicontest = requests.get(repoicon, timeout=3)
-                if repoicontest.status_code != 200:
-                    repoicon = "https://github.com/Wamy-Dev/Apokto/blob/main/assets/error.png?raw=true"
-                else:
+                if repoicontest.ok:
                     repoicon = f"{url}/CydiaIcon.png"
+                else:
+                    repoicon = "https://github.com/Wamy-Dev/Apokto/blob/main/assets/error.png?raw=true"
                 #now upload to firebase
                 try:
                     upload = db.collection("repos").document(name)
@@ -71,9 +79,9 @@ if response.status_code == 200:
                     }, merge=True)
                     print(f"### Uploaded {name} to database ###")
                 except:
-                    print("### Bad repo. Skipping ###")
+                    print(f"### {name} is a bad repo. Skipping ###")
             else:
-                print("### Bad repo. Skipping ###")
+                print(f"### {name} is a bad repo. Skipping ###")
         except:
             print("### Bad repo. Skipping ###") 
     #custom repos
@@ -91,7 +99,9 @@ if response.status_code == 200:
             "number": current
             }, merge=True)
         print("### Uploaded Apokto to database ###")
-    ApoktoCustom(current)     
+    ApoktoCustom(current)
+    #delete sources file
+    shutil.rmtree("./sources") 
     try:
         now=datetime.now()
         current_time = now.strftime("%H:%M:%S")
