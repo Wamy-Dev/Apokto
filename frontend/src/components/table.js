@@ -93,7 +93,7 @@ export default function RepoTable() {
     }
   }
   const getData = async () => {
-    const queryySnapshot = await getDocs(query(collection(db, "repos"),orderBy('name', "asc"),limit(pagelength)));
+    const queryySnapshot = await getDocs(query(collection(db, "repos"),orderBy('id', "asc"),limit(pagelength)));
     setQuerySnap(queryySnapshot)
     setPage(1)
   }
