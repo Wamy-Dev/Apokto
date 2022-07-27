@@ -27,7 +27,6 @@ https://gilesgc.github.io/repo
 https://bxnto.github.io
 https://stable.szifon.com
 https://r0wdrunner.github.io/repo
-https://repo.daus.ch
 https://repo.tylercasson.com
 https://apt.tale.me
 https://repo.orangebananaspy.com
@@ -50,7 +49,6 @@ https://skitty.xyz/beta
 https://nikostito.github.io/NtdarkDebs
 https://extigy.github.io/repo
 https://rudikelly.github.io/repo
-https://captinc.me
 https://mirrors.kodi.tv/apt/ios
 https://repo.krit.me
 https://supporter.cpdigitaldarkroom.com/repo
@@ -66,7 +64,6 @@ https://7we.win/cydia
 https://sailyteam.github.io/repo
 https://brunonfl.github.io
 https://ryannair05.github.io/repo
-https://flashbackios.github.io
 https://rishanan.github.io
 https://redentic.dev
 https://soda-ldz.yourepo.com
@@ -95,7 +92,6 @@ https://repo.nesolabs.de
 https://nicho1asdev.github.io/repo
 https://n-i-n-0.github.io/repo
 https://shepgoba.github.io
-https://repo.tihmstar.net
 https://jammytea.github.io
 https://sugiuta.github.io
 https://beta.apptapp.me
@@ -154,7 +150,6 @@ https://pillowbear.github.io
 https://creaturecoding.com/repo
 https://cydia.tapsharp.com
 https://packetfahrer.github.io
-https://soda-ldz.yourepo.com
 https://lumartti.github.io
 https://brianleek.me/repo
 https://ramen2x.github.io
@@ -203,7 +198,6 @@ https://halo-michael.github.io/repo
 https://udevsharold.github.io/repo
 https://megadevios.github.io/repo
 https://chikuwajb.github.io/repo
-https://beta.dave1482.com
 https://obumbravit.github.io/0SRepo
 http://laughingquoll.net/repo
 https://nahum365.github.io
@@ -237,7 +231,6 @@ https://apt.bingner.com
 https://getdelta.co
 https://tdmd.github.io
 https://repo.1conan.com
-https://level3tjg.me/repo
 https://skitty.xyz/repo
 https://repo.supercharge.app
 https://havoc.app
@@ -306,13 +299,11 @@ https://repo.pixelomer.com
 https://nahtedetihw.github.io
 https://shiftcmdk.github.io/repo
 https://flashbackios.github.io
-https://virenmohindra.github.io
 https://cokepokes.github.io
 https://julioverne.github.io
 https://apt.itsnebula.net
 https://repo.lillieh.gay
 https://repo.xyaman.xyz
-https://maskman007.github.io/pubg
 https://apt.securarepo.io
 https://chrisosx.github.io
 https://apt.autotouch.net
@@ -321,7 +312,6 @@ https://dansa.github.io
 https://parrotgeek.com/repo
 https://arandomdev.github.io/repo
 https://worksbybbs.github.io
-https://pheuxdev.github.io/repo
 https://wiety.github.io/cydia
 https://fakefakedev.github.io/repo
 https://repo.cpdigitaldarkroom.com
