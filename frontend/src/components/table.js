@@ -235,11 +235,11 @@ export default function RepoTable() {
           <p style={{fontFamily:"Mukta"}}>Please click the "Download" button if you prefer to manually install your repo.</p>
           <p style={{fontSize: "sm", fontFamily:"Mukta"}}>If you found this service useful, please consider donating.</p>
           <center>
-          <Button component="a" href='https://api.apokto.one/download' color="mainred" style={{marginRight: "20px"}}>
+          <Button component="a" href={`https://api.apokto.one/download?list=${repolist}`} color="mainred" style={{marginRight: "20px"}}>
             Download
           </Button>
           <Button onClick={() => {
-            fetch('https://api.apokto.one/addtorepo', {
+            fetch(`https://api.apokto.one/addtorepo?list=${repolist}`, {
               method: 'get',
               credentials: 'include',
             }).then(response => response.status).then((r) => {

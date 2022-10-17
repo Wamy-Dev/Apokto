@@ -11,12 +11,12 @@ const md5File = require('md5-file')
 
 const app = express()
 const port = 3001
-app.use(session({
-    secret: process.env.COOKIESECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: { maxAge: 60000 }
-  }))
+// app.use(session({
+//     secret: process.env.COOKIESECRET,
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: { maxAge: 60000 }
+//   }))
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', "https://apokto.one",);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -61,14 +61,15 @@ app.post('/create', async (req, res) => {
                 console.log(`exec error: ${error}`);
             }
         });
-    req.session.file = repolist
+    // req.session.file = repolist
     res.status(200).json({listname: repolist})
 })
 app.get('/create', (req, res) => {
     res.status(200).send('<h3>This is where you create your repo list. 🐎</h3>')
 })
 app.get('/download', (req, res) => {
-    var file = req.session.file;
+    var file = req.query.list;
+    console.log(file)
     if (file) {
       var dir = "./lists/" + `${file}.deb`
       res.download(dir)
@@ -77,7 +78,7 @@ app.get('/download', (req, res) => {
     }
 })
 app.get('/addtorepo', async (req, res) => {
-  var file = req.session.file;
+  var file = req.query.list;
   if (file) {
     function createPackage(file){
       //get current packages file
