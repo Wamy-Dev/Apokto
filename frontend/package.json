@@ -13,7 +13,7 @@
     "@react-spring/parallax": "^9.4.5",
     "async": ">=2.6.4",
     "firebase": "^9.6.11",
-    "firebase-admin": "^10.0.2",
+    "firebase-admin": "^11.4.1",
     "nth-check": ">=2.0.1",
     "react": "^18.0.0",
     "react-device-detect": "^2.2.2",
