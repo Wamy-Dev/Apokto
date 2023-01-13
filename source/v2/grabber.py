@@ -26,7 +26,7 @@ def delete_collection(coll_ref, batch_size):
 			deleted = deleted + 1
 		if deleted >= batch_size:
 			return delete_collection(coll_ref, batch_size)
-response = requests.get("https://api.canister.me/v1/")
+response = requests.get("https://api.canister.me/v2/")
 if response.status_code == 200:
     delete_collection(db.collection("repos"), 1000)
     list = []
@@ -41,12 +41,12 @@ if response.status_code == 200:
     current = 0
     #now request for each
     for r in list:
-        repodata = requests.get(f"https://api.canister.me/v1/community/repositories/search?query={r}&responseFields=name,description,uri")
-        decodedrepodata = repodata.content.decode()
-        data = json.loads(decodedrepodata)
+        repodata = requests.get(f"https://api.canister.me/v2/jailbreak/repository/search?q={r}")
+        repodata = repodata.content
+        data = json.loads(repodata)
         total = len(list)
         try:
-            if data["status"] == "Successful" and data["data"][0]["name"]:
+            if data["message"] == "200 OK" and data["data"][0]["name"]:
                 current+=1
                 N = 10
                 ID = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
