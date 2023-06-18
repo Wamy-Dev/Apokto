@@ -46,7 +46,7 @@ if response.status_code == 200:
         data = json.loads(repodata)
         total = len(list)
         try:
-            if data["message"] == "200 OK" and data["data"][0]["name"]:
+            if data["status"] == "200 OK" and data["data"][0]["name"]:
                 current+=1
                 N = 10
                 ID = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
