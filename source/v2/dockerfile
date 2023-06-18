@@ -3,5 +3,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     && rm -rf /var/lib/apt/lists/*
 COPY . .
+ENV CRONMONITORING=yourcronmonitoringurl
 RUN pip install -r requirements.txt
 CMD ["python", "grabber.py"]
